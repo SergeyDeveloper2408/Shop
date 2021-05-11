@@ -1,0 +1,62 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="skozhushanyi" id="sk1">
+        <sql>
+            <![CDATA[
+                DROP TABLE IF EXISTS customers;
+                create table customers(
+                    id serial primary key,
+                    username varchar(50) not null unique
+                );
+
+                DROP TABLE IF EXISTS products;
+                create table products(
+                    id serial primary key,
+                    title varchar(100) not null,
+                    price int not null
+                );
+
+                DROP TABLE IF EXISTS orders;
+                create table orders(
+                    id serial primary key,
+                    product_id int not null,
+                    customer_id int not null
+                );
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet author="skozhushanyi" id="sk2">
+        <sql>
+            <![CDATA[
+                insert into customers(username) values('First Customer');
+	            insert into customers(username) values('Second Customer');
+
+	            insert into products(title, price) values('Cheese', 25);
+	            insert into products(title, price) values('Crisps', 30);
+                insert into products(title, price) values('Pizza', 40);
+                insert into products(title, price) values('Chocolate', 15);
+                insert into products(title, price) values('Self-raising flour', 60);
+                insert into products(title, price) values('Ground almonds', 100);
+
+                insert into orders(product_id, customer_id) values(1, 1);
+	            insert into orders(product_id, customer_id) values(2, 2);
+                insert into orders(product_id, customer_id) values(3, 1);
+                insert into orders(product_id, customer_id) values(4, 2);
+                insert into orders(product_id, customer_id) values(5, 1);
+                insert into orders(product_id, customer_id) values(6, 1);
+                insert into orders(product_id, customer_id) values(6, 2);
+	            insert into orders(product_id, customer_id) values(5, 2);
+                insert into orders(product_id, customer_id) values(4, 2);
+                insert into orders(product_id, customer_id) values(3, 1);
+                insert into orders(product_id, customer_id) values(2, 2);
+                insert into orders(product_id, customer_id) values(1, 2);
+            ]]>
+        </sql>
+    </changeSet>
+</databaseChangeLog>
